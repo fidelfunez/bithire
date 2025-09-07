@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, CheckCircle, Zap, Mail, Phone, Clock, Users, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, Mail, Phone, Clock, Users, Shield } from 'lucide-react';
 
 const CTA = () => {
   return (
