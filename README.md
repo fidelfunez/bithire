@@ -114,9 +114,9 @@ This project is proprietary to Bithire. All rights reserved.
 ## 🤝 Support
 
 For questions or support, contact:
-- Email: hello@bithire.com
-- Phone: +1 (555) 012-3456
+- Email: connect@bithire.com
+- Phone: +504 9878-1409
 
 ---
 
-Built with ❤️ by the Bithire team
+Built with 🧡 by the Bithire team
