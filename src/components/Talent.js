@@ -23,6 +23,7 @@ import {
   Briefcase,
   Zap
 } from 'lucide-react';
+import FallingCode from './FallingCode';
 
 const Talent = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -238,7 +239,8 @@ const Talent = () => {
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-orange-600/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FallingCode />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 2 }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
