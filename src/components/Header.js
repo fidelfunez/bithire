@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
               <img 
                 src="/logos/Bithire Logos/bithire-logo.svg" 
@@ -35,7 +36,7 @@ const Header = () => {
             <span className="text-2xl font-bold text-white">
               Bit<span className="gradient-text">Hire</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -51,6 +52,9 @@ const Header = () => {
             <a href="#tech-stack" className="text-white/80 hover:text-white transition-colors duration-200">
               Tech Stack
             </a>
+            <Link to="/talent" className="text-white/80 hover:text-white transition-colors duration-200">
+              For Developers
+            </Link>
             <a href="#contact" className="glass-button">
               Get Started
             </a>
@@ -101,6 +105,13 @@ const Header = () => {
               >
                 Tech Stack
               </a>
+              <Link
+                to="/talent"
+                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                For Developers
+              </Link>
               <a
                 href="#contact"
                 className="block px-3 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500"
