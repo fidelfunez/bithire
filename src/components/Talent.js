@@ -239,6 +239,7 @@ const Talent = () => {
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-orange-600/20"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         <FallingCode />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 2 }}>
           <motion.div
@@ -265,8 +266,7 @@ const Talent = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Join Latin America's most exclusive network of pre-vetted developers. 
-              Work with top US companies, earn competitive Bitcoin salaries, and accelerate your career.
+              Work with top U.S. companies, earn competitive salaries (with optional Bitcoin payments), and build a global career. Join Latin America's premier network of developers and take your career to the next level.
             </p>
             
             <motion.div
@@ -533,7 +533,7 @@ const Talent = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+1 (281) 541-7279"
                       />
                     </div>
                   </div>

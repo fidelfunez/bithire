@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const FallingCode = () => {
   const canvasRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const animationRef = useRef(null);
 
   // Programming keywords and code snippets
@@ -99,6 +98,142 @@ const FallingCode = () => {
         'export default Developer;'
       ],
       type: 'export'
+    },
+    {
+      lines: [
+        '// BitHire Developer Portal',
+        'const bithireAPI = {',
+        '  baseURL: "https://api.bithire.co",',
+        '  endpoints: {',
+        '    apply: "/developers/apply",',
+        '    status: "/developers/status"',
+        '  }',
+        '};'
+      ],
+      type: 'api'
+    },
+    {
+      lines: [
+        'async function joinBitHire() {',
+        '  const response = await fetch(bithireAPI.endpoints.apply, {',
+        '    method: "POST",',
+        '    headers: { "Content-Type": "application/json" },',
+        '    body: JSON.stringify(developerProfile)',
+        '  });',
+        '  return response.json();',
+        '}'
+      ],
+      type: 'function'
+    },
+    {
+      lines: [
+        '// Remote Work with BitHire',
+        'const remoteWork = {',
+        '  benefits: ["Bitcoin payments", "US clients", "Flexible hours"],',
+        '  requirements: ["3+ years experience", "English fluency"]',
+        '};'
+      ],
+      type: 'object'
+    },
+    {
+      lines: [
+        'import React, { useState } from "react";',
+        '',
+        'const DeveloperProfile = () => {',
+        '  const [skills, setSkills] = useState([]);',
+        '  return <div>Apply to BitHire</div>;',
+        '};'
+      ],
+      type: 'react'
+    },
+    {
+      lines: [
+        '// CodeSignal Assessment',
+        'function findBestDeveloper(candidates) {',
+        '  return candidates.filter(dev =>',
+        '    dev.experience >= 3 && dev.englishLevel === "fluent"',
+        '  );',
+        '}'
+      ],
+      type: 'function'
+    },
+    {
+      lines: [
+        'const techStack = {',
+        '  frontend: ["React", "Vue", "Angular"],',
+        '  backend: ["Node.js", "Python", "Java"],',
+        '  database: ["PostgreSQL", "MongoDB", "Redis"]',
+        '};'
+      ],
+      type: 'object'
+    },
+    {
+      lines: [
+        '// BitHire Matching Algorithm',
+        'async function matchDeveloper(client, developer) {',
+        '  const compatibility = calculateCompatibility(client, developer);',
+        '  if (compatibility > 0.8) {',
+        '    return await createMatch(client, developer);',
+        '  }',
+        '}'
+      ],
+      type: 'async'
+    },
+    {
+      lines: [
+        'const developer = {',
+        '  name: "Your Name",',
+        '  location: "Latin America",',
+        '  skills: ["JavaScript", "Python", "React"],',
+        '  experience: "5+ years",',
+        '  remoteReady: true',
+        '};'
+      ],
+      type: 'object'
+    },
+    {
+      lines: [
+        '// Bitcoin Payment Integration',
+        'const payment = {',
+        '  amount: 5000, // USD',
+        '  currency: "BTC",',
+        '  recipient: developer.walletAddress,',
+        '  status: "pending"',
+        '};'
+      ],
+      type: 'object'
+    },
+    {
+      lines: [
+        'function validateApplication(application) {',
+        '  const required = ["name", "email", "skills", "experience"];',
+        '  return required.every(field => application[field]);',
+        '}'
+      ],
+      type: 'function'
+    },
+    {
+      lines: [
+        '// US Client Integration',
+        'const client = {',
+        '  company: "Tech Startup",',
+        '  location: "San Francisco",',
+        '  project: "Full-Stack Development",',
+        '  budget: "$8000/month"',
+        '};'
+      ],
+      type: 'object'
+    },
+    {
+      lines: [
+        'const interview = {',
+        '  type: "developer-to-developer",',
+        '  duration: "45 minutes",',
+        '  topics: ["technical", "cultural fit"],',
+        '  outcome: "hired"',
+        '};'
+      ],
+      type: 'object'
     }
   ];
 
@@ -112,8 +247,9 @@ const FallingCode = () => {
     let isMobile = window.innerWidth < 768;
 
     // Performance optimization: reduce elements on mobile
-    const particleCount = isMobile ? 15 : 25;
-    const codeCount = isMobile ? 5 : 8;
+    // Changed ratio: 80% code lines, 20% single words
+    const particleCount = isMobile ? 3 : 5; // Fewer single words
+    const codeCount = isMobile ? 12 : 20; // More code blocks
 
     // Set canvas size
     const resizeCanvas = () => {
@@ -125,62 +261,103 @@ const FallingCode = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Mouse tracking (throttled for performance)
-    let mouseThrottle = 0;
-    const handleMouseMove = (e) => {
-      if (mouseThrottle++ % 3 === 0) { // Throttle to every 3rd frame
-        setMousePos({ x: e.clientX, y: e.clientY });
-      }
-    };
-    window.addEventListener('mousemove', handleMouseMove);
+    // Mouse tracking removed to prevent animation interference
 
-    // Enhanced Particle class with glow and rotation
+    // Enhanced Particle class with all improvements
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = -50;
         this.text = keywords[Math.floor(Math.random() * keywords.length)];
-        this.speed = Math.random() * 2 + 0.5;
+        this.speed = Math.random() * 3 + 0.5; // Faster speeds: 0.5 to 3.5
         this.opacity = Math.random() * 0.6 + 0.2;
         this.fontSize = Math.random() * 12 + 10;
-        this.rotation = Math.random() * 0.1 - 0.05; // Subtle rotation
-        this.rotationSpeed = Math.random() * 0.02 - 0.01;
+        this.rotation = 0; // No rotation for natural falling
+        this.rotationSpeed = 0;
         this.glowIntensity = Math.random() * 0.3 + 0.1;
         this.baseColor = `rgba(59, 130, 246, ${this.opacity})`;
         this.glowColor = `rgba(59, 130, 246, ${this.glowIntensity})`;
+        
+        // New enhancements
+        this.size = Math.random() * 0.5 + 0.75; // Size variation (0.75x to 1.25x)
+        this.fadeInProgress = 0; // For fade-in effect
+        this.trail = []; // Trail effect
+        this.maxTrailLength = 8;
+        this.originalY = this.y;
+        this.easeProgress = 0; // For smoother transitions
+        this.depth = Math.random() * 0.5 + 0.5; // Depth variation (0.5 to 1.0)
       }
 
       update() {
+        // Natural falling movement - no easing
         this.y += this.speed;
         this.rotation += this.rotationSpeed;
         
-        // Subtle mouse interaction
-        const dx = mousePos.x - this.x;
-        const dy = mousePos.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 150) {
-          const force = (150 - distance) / 150;
-          this.x += dx * force * 0.01;
-          this.y += dy * force * 0.01;
+        // Fade-in effect
+        if (this.fadeInProgress < 1) {
+          this.fadeInProgress += 0.05;
         }
+        
+        // Trail effect
+        this.trail.push({ x: this.x, y: this.y, opacity: this.opacity * this.fadeInProgress });
+        if (this.trail.length > this.maxTrailLength) {
+          this.trail.shift();
+        }
+        
+        // Removed mouse interaction to prevent animation restart
 
         if (this.y > canvas.height + 50) {
+          // Particle burst effect when reaching bottom
+          this.createBurstEffect();
+          
           this.y = -50;
           this.x = Math.random() * canvas.width;
           this.text = keywords[Math.floor(Math.random() * keywords.length)];
-          this.rotation = Math.random() * 0.1 - 0.05;
+          this.rotation = 0;
+          this.fadeInProgress = 0;
+          this.trail = [];
+          this.easeProgress = 0;
+          this.depth = Math.random() * 0.5 + 0.5;
+        }
+      }
+      
+      createBurstEffect() {
+        // Simple burst effect - could be enhanced further
+        for (let i = 0; i < 3; i++) {
+          const burst = {
+            x: this.x + (Math.random() - 0.5) * 20,
+            y: this.y,
+            vx: (Math.random() - 0.5) * 2,
+            vy: Math.random() * 2,
+            life: 1,
+            decay: 0.02
+          };
+          // Store burst for rendering (would need burst array in main scope)
         }
       }
 
       draw() {
+        // Draw trail effect
+        this.trail.forEach((point, index) => {
+          const trailOpacity = (index / this.trail.length) * point.opacity * 0.3;
+          ctx.save();
+          ctx.globalAlpha = trailOpacity;
+          ctx.font = `${this.fontSize * this.size}px 'Inter', monospace`;
+          ctx.fillStyle = this.baseColor;
+          ctx.fillText(this.text, point.x, point.y);
+          ctx.restore();
+        });
+        
+        // Draw main particle
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
+        ctx.scale(this.size, this.size); // Size variation
         
-        // Glow effect
+        // Glow effect with depth
         ctx.shadowColor = this.glowColor;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 8 * this.depth; // Deeper elements have more glow
         ctx.font = `${this.fontSize}px 'Inter', monospace`;
+        ctx.globalAlpha = this.fadeInProgress * this.depth; // Deeper elements are more transparent
         ctx.fillStyle = this.baseColor;
         ctx.fillText(this.text, 0, 0);
         
@@ -188,21 +365,29 @@ const FallingCode = () => {
       }
     }
 
-    // Enhanced Code element with syntax highlighting
+    // Enhanced Code element with all improvements
     class CodeElement {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = -200;
         this.snippet = this.generateCodeSnippet();
-        this.speed = Math.random() * 1.5 + 0.3;
+        this.speed = Math.random() * 2.5 + 0.3; // Faster speeds: 0.3 to 2.8
         this.opacity = Math.random() * 0.4 + 0.1;
         this.lineHeight = 18;
         this.fontSize = 12;
-        this.rotation = Math.random() * 0.05 - 0.025;
-        this.rotationSpeed = Math.random() * 0.01 - 0.005;
+        this.rotation = 0; // No rotation for natural falling
+        this.rotationSpeed = 0;
         this.glowIntensity = Math.random() * 0.2 + 0.05;
         this.baseColor = `rgba(249, 115, 22, ${this.opacity})`;
         this.glowColor = `rgba(249, 115, 22, ${this.glowIntensity})`;
+        
+        // New enhancements
+        this.size = Math.random() * 0.3 + 0.85; // Size variation
+        this.fadeInProgress = 0;
+        this.trail = [];
+        this.maxTrailLength = 6;
+        this.easeProgress = 0;
+        this.depth = Math.random() * 0.5 + 0.5; // Depth variation (0.5 to 1.0)
       }
 
       generateCodeSnippet() {
@@ -210,48 +395,85 @@ const FallingCode = () => {
       }
 
       update() {
+        // Natural falling movement - no easing
         this.y += this.speed;
         this.rotation += this.rotationSpeed;
         
-        // Subtle mouse interaction
-        const dx = mousePos.x - this.x;
-        const dy = mousePos.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 200) {
-          const force = (200 - distance) / 200;
-          this.x += dx * force * 0.005;
-          this.y += dy * force * 0.005;
+        // Fade-in effect
+        if (this.fadeInProgress < 1) {
+          this.fadeInProgress += 0.03;
         }
+        
+        // Trail effect
+        this.trail.push({ x: this.x, y: this.y, opacity: this.opacity * this.fadeInProgress });
+        if (this.trail.length > this.maxTrailLength) {
+          this.trail.shift();
+        }
+        
+        // Removed mouse interaction to prevent animation restart
 
         if (this.y > canvas.height + 200) {
           this.y = -200;
           this.x = Math.random() * canvas.width;
           this.snippet = this.generateCodeSnippet();
-          this.rotation = Math.random() * 0.05 - 0.025;
+          this.rotation = 0;
+          this.fadeInProgress = 0;
+          this.trail = [];
+          this.easeProgress = 0;
+          this.depth = Math.random() * 0.5 + 0.5;
         }
       }
 
       draw() {
+        // Draw trail effect
+        this.trail.forEach((point, index) => {
+          const trailOpacity = (index / this.trail.length) * point.opacity * 0.2;
+          ctx.save();
+          ctx.globalAlpha = trailOpacity;
+          ctx.font = `${this.fontSize * this.size}px 'Inter', monospace`;
+          
+          this.snippet.lines.forEach((line, lineIndex) => {
+            const y = point.y + (lineIndex * this.lineHeight);
+            if (y > -20 && y < canvas.height + 20) {
+              let color = this.baseColor;
+              if (line.trim().startsWith('//')) {
+                color = `rgba(156, 163, 175, ${this.opacity})`;
+              } else if (line.includes('function') || line.includes('class') || line.includes('const') || line.includes('let')) {
+                color = `rgba(34, 197, 94, ${this.opacity})`;
+              } else if (line.includes('"') || line.includes("'")) {
+                color = `rgba(168, 85, 247, ${this.opacity})`;
+              }
+              ctx.fillStyle = color;
+              ctx.fillText(line, point.x, y);
+            }
+          });
+          ctx.restore();
+        });
+        
+        // Draw main code element
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
+        ctx.scale(this.size, this.size);
         
-        // Glow effect
+        // Glow effect with depth
         ctx.shadowColor = this.glowColor;
-        ctx.shadowBlur = 6;
+        ctx.shadowBlur = 6 * this.depth; // Deeper elements have more glow
         ctx.font = `${this.fontSize}px 'Inter', monospace`;
+        ctx.globalAlpha = this.fadeInProgress * this.depth; // Deeper elements are more transparent
         
         this.snippet.lines.forEach((line, index) => {
           const y = index * this.lineHeight;
           if (y > -20 && y < canvas.height + 20) {
-            // Simple syntax highlighting
+            // Enhanced syntax highlighting
             let color = this.baseColor;
             if (line.trim().startsWith('//')) {
               color = `rgba(156, 163, 175, ${this.opacity})`; // Gray for comments
-            } else if (line.includes('function') || line.includes('class') || line.includes('const') || line.includes('let')) {
+            } else if (line.includes('function') || line.includes('class') || line.includes('const') || line.includes('let') || line.includes('async') || line.includes('await')) {
               color = `rgba(34, 197, 94, ${this.opacity})`; // Green for keywords
             } else if (line.includes('"') || line.includes("'")) {
               color = `rgba(168, 85, 247, ${this.opacity})`; // Purple for strings
+            } else if (line.includes('BitHire') || line.includes('bithire')) {
+              color = `rgba(59, 130, 246, ${this.opacity})`; // Blue for BitHire branding
             }
             
             ctx.fillStyle = color;
@@ -263,28 +485,37 @@ const FallingCode = () => {
       }
     }
 
-    // Create particles and code elements
+    // Create particles and code elements with better spacing
     for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
+      const particle = new Particle();
+      // Better distribution across screen width
+      particle.x = (canvas.width / particleCount) * i + Math.random() * (canvas.width / particleCount);
+      particles.push(particle);
     }
 
     for (let i = 0; i < codeCount; i++) {
-      codeElements.push(new CodeElement());
+      const codeElement = new CodeElement();
+      // Better distribution across screen width
+      codeElement.x = (canvas.width / codeCount) * i + Math.random() * (canvas.width / codeCount);
+      codeElements.push(codeElement);
     }
 
-    // Optimized animation loop
+    // Optimized animation loop with depth sorting
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Update and draw particles
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-
-      // Update and draw code elements
-      codeElements.forEach(element => {
-        element.update();
+      // Update all elements first
+      particles.forEach(particle => particle.update());
+      codeElements.forEach(element => element.update());
+      
+      // Combine all elements and sort by depth (back to front)
+      const allElements = [
+        ...particles.map(p => ({ element: p, depth: p.depth, type: 'particle' })),
+        ...codeElements.map(c => ({ element: c, depth: c.depth, type: 'code' }))
+      ].sort((a, b) => a.depth - b.depth);
+      
+      // Draw elements from back to front
+      allElements.forEach(({ element }) => {
         element.draw();
       });
 
@@ -295,12 +526,11 @@ const FallingCode = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [mousePos]);
+  }, []);
 
   return (
     <canvas

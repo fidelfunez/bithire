@@ -110,10 +110,10 @@ const Footer = () => {
             <div>
               <div className="text-white font-medium">Phone</div>
               <a 
-                href="tel:+504-9878-1409" 
+                href="tel:+12815417279" 
                 className="text-white/70 hover:text-white transition-colors"
               >
-                +504 9878-1409
+                +1 (281) 541-7279
               </a>
             </div>
           </div>

@@ -161,10 +161,10 @@ const CTA = () => {
             <h3 className="text-xl font-bold text-white mb-4">Call Us</h3>
             <p className="text-white/80 mb-6">Speak directly with our team</p>
             <a 
-              href="tel:+504-9878-1409" 
+              href="tel:+12815417279" 
               className="text-primary-400 hover:text-primary-300 transition-colors font-medium"
             >
-              +504 9878-1409
+              +1 (281) 541-7279
             </a>
           </div>
 
