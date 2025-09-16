@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 const FallingCode = () => {
   const canvasRef = useRef(null);
@@ -419,63 +418,6 @@ const FallingCode = () => {
     }
   }
 
-  // Enhanced BurstParticle class for explosion effects (keeping as backup)
-  class BurstParticle {
-    constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.vx = (Math.random() - 0.5) * 12; // Increased horizontal velocity
-      this.vy = -Math.random() * 8 - 3; // Increased upward velocity
-      this.life = 1.0;
-      this.decay = Math.random() * 0.015 + 0.008; // Slower decay for longer visibility
-      this.size = Math.random() * 6 + 4; // Larger particle size (4-10px)
-      this.color = color;
-      this.gravity = 0.15; // Increased gravity effect
-      this.friction = 0.98; // Air resistance
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.vy += this.gravity; // Apply gravity
-      this.vx *= this.friction; // Apply friction
-      this.vy *= this.friction;
-      this.life -= this.decay;
-    }
-
-    draw(ctx) {
-      if (this.life <= 0) return;
-      
-      
-      ctx.save();
-      ctx.globalAlpha = this.life;
-      
-      // Draw solid center for better visibility
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size * 0.6, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Create gradient glow around the particle
-      const gradient = ctx.createRadialGradient(
-        this.x, this.y, this.size * 0.6,
-        this.x, this.y, this.size
-      );
-      gradient.addColorStop(0, this.color);
-      gradient.addColorStop(1, 'transparent');
-      
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-      
-      ctx.restore();
-    }
-
-    isDead() {
-      return this.life <= 0;
-    }
-  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -601,7 +543,7 @@ const FallingCode = () => {
         const particleCount = Math.floor(Math.random() * 5) + 8;
         for (let i = 0; i < particleCount; i++) {
           const color = colors[Math.floor(Math.random() * colors.length)];
-          const particle = new BurstParticle(this.x, this.y, color);
+          const particle = new RealisticFirework(this.x, this.y, color);
           burstParticlesRef.current.push(particle);
         }
         */
@@ -807,7 +749,7 @@ const FallingCode = () => {
         const particleCount = Math.floor(Math.random() * 6) + 10;
         for (let i = 0; i < particleCount; i++) {
           const color = colors[Math.floor(Math.random() * colors.length)];
-          const particle = new BurstParticle(this.x, this.y, color);
+          const particle = new RealisticFirework(this.x, this.y, color);
           burstParticlesRef.current.push(particle);
         }
         */
@@ -882,6 +824,7 @@ const FallingCode = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

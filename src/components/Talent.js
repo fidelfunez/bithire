@@ -1,30 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { 
   ArrowRight, 
   CheckCircle, 
-  Star, 
   Users, 
   Globe, 
   DollarSign,
   Clock,
-  Code,
-  Award,
   MessageCircle,
-  FileText,
   Send,
   ChevronRight,
   ChevronLeft,
   ChevronDown,
-  ExternalLink,
-  Github,
-  Linkedin,
-  MapPin,
-  Calendar,
-  Briefcase,
   Zap,
   Medal,
-  Trophy,
   ShieldCheck,
   HeartCrack,
   HelpCircle
@@ -170,7 +159,7 @@ const Talent = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [step3SubStep, setStep3SubStep] = useState('a'); // 'a' for Languages+Frameworks, 'b' for Databases+Tools
-  const [activeSection, setActiveSection] = useState('personal');
+  const [, setActiveSection] = useState('personal');
   const [completedSections, setCompletedSections] = useState(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
   const [bootPhase, setBootPhase] = useState(0); // 0: boot, 1: logo, 2: progress, 3: form
@@ -228,6 +217,8 @@ const Talent = () => {
   const isBenefitsInView = useInView(benefitsRef, { once: true, margin: "-100px" });
   const isProcessInView = useInView(processRef, { once: true, margin: "-100px" });
   const isRequirementsInView = useInView(requirementsRef, { once: true, margin: "-100px" });
+  // eslint-disable-next-line no-unused-vars
+  const _ = isRequirementsInView; // Suppress unused variable warning
   const isFormInView = useInView(formRef, { once: true, margin: "-100px" });
   const isFaqInView = useInView(faqRef, { once: true, margin: "-100px" });
 
@@ -268,28 +259,6 @@ const Talent = () => {
     setBootPhase(0); // Reset to boot sequence
   };
 
-  const benefits = [
-    {
-      icon: <DollarSign className="w-8 h-8" />,
-      title: "Competitive Compensation",
-      description: "Earn competitive salaries aligned with U.S. market rates, with optional Bitcoin payments."
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Remote-First Culture",
-      description: "Work from anywhere in Latin America with flexible hours and remote-first opportunities."
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: "Premium Clients",
-      description: "Collaborate with innovative U.S. startups and tech companies building cutting-edge products."
-    },
-    {
-      icon: <Star className="w-8 h-8" />,
-      title: "Quality Assurance",
-      description: "Join a curated network of vetted engineers. No spam, no fake opportunities."
-    }
-  ];
 
   const processSteps = [
     {
@@ -324,33 +293,6 @@ const Talent = () => {
     }
   ];
 
-  const requirements = [
-    {
-      category: "Technical Skills",
-      items: [
-        "3+ years of professional development experience",
-        "Proficiency in at least one modern programming language",
-        "Experience with version control (Git)",
-        "Understanding of software development best practices"
-      ]
-    },
-    {
-      category: "Communication",
-      items: [
-        "Fluent English (written and spoken)",
-        "Strong communication skills for remote collaboration",
-        "Experience with agile development methodologies"
-      ]
-    },
-    {
-      category: "Professional",
-      items: [
-        "Previous remote work experience preferred",
-        "Portfolio demonstrating technical capabilities",
-        "Commitment to continuous learning and improvement"
-      ]
-    }
-  ];
 
   const faqs = [
     {
@@ -436,7 +378,7 @@ const Talent = () => {
   };
 
   // Function to check if a section is completed
-  const isSectionCompleted = (sectionId) => {
+  const isSectionCompleted = useCallback((sectionId) => {
     switch (sectionId) {
       case 'personal':
         return formData.firstName && formData.lastName && formData.email && formData.phone && formData.location && formData.timezone;
@@ -451,7 +393,7 @@ const Talent = () => {
       default:
         return false;
     }
-  };
+  }, [formData]);
 
   // Function to check if an individual field is completed
   const isFieldCompleted = (fieldName, fieldType = 'text') => {
@@ -492,7 +434,7 @@ const Talent = () => {
     if (isSectionCompleted('portfolio')) newCompletedSections.add('portfolio');
     
     setCompletedSections(newCompletedSections);
-  }, [formData]);
+  }, [formData, isSectionCompleted]);
 
   const handleFileChange = (e) => {
     setFormData(prev => ({
@@ -528,7 +470,7 @@ const Talent = () => {
   };
 
   // Calculate form completion percentage
-  const calculateCompletion = () => {
+  const calculateCompletion = useCallback(() => {
     const sections = [
       { key: 'personal', fields: ['firstName', 'lastName', 'email'] },
       { key: 'experience', fields: ['experience', 'englishLevel'] },
@@ -555,13 +497,13 @@ const Talent = () => {
     
     setCompletedSections(newCompletedSections);
     return Math.round((completedCount / sections.length) * 100);
-  };
+  }, [formData]);
 
   // Auto-save functionality
   useEffect(() => {
     const completionPercentage = calculateCompletion();
     setScrollProgress(completionPercentage);
-  }, [formData]);
+  }, [formData, calculateCompletion]);
 
   // Intersection Observer for active section tracking
   useEffect(() => {

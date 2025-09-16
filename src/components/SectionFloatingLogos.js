@@ -83,6 +83,7 @@ const SectionFloatingLogos = () => {
     });
     
     return instances;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array means this only runs once
 
   // Generate stable animations for each logo instance
