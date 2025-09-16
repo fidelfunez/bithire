@@ -133,12 +133,14 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight"
           >
-            <div className="text-white">Hire Vetted</div>
-            <div className="gradient-text">
+            <span className="text-white">Hire Vetted</span>
+            <br />
+            <span className="gradient-text">
               {displayText}
               <span className="text-white animate-pulse font-bold">|</span>
-            </div>
-            <div className="text-white">from Latin America</div>
+            </span>
+            <br />
+            <span className="text-white">from Latin America</span>
           </motion.h1>
 
           {/* Subheadline */}

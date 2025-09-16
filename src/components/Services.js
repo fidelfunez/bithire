@@ -100,7 +100,7 @@ const Services = () => {
               <div className="aspect-[4/3] rounded-2xl border border-white/20 overflow-hidden">
                 <img 
                   src="/photos/developer-team-working-remotely.webp" 
-                  alt="Team of developers working remotely"
+                  alt="Remote development team from Latin America collaborating on technical projects and code reviews"
                   loading="lazy"
                   className="w-full h-full object-cover"
                 />
@@ -133,7 +133,7 @@ const Services = () => {
               <div className="aspect-[4/3] rounded-2xl border border-white/20 overflow-hidden">
                 <img 
                   src="/photos/bitcoin-payment-interface.webp" 
-                  alt="Bitcoin payment interface"
+                  alt="Bitcoin payroll interface for remote developer payments with secure cryptocurrency transactions"
                   loading="lazy"
                   className="w-full h-full object-cover"
                 />
@@ -149,7 +149,7 @@ const Services = () => {
               >
                 <img 
                   src="/logos/3D Logos/3D-Bitcoin-seal.webp" 
-                  alt="3D Bitcoin Seal"
+                  alt="3D Bitcoin seal logo representing secure cryptocurrency payment solutions for remote developers"
                   loading="lazy"
                   className="w-32 h-32 object-contain hover:scale-110 transition-transform duration-300"
                 />

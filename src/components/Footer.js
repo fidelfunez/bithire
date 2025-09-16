@@ -10,9 +10,13 @@ const Footer = () => {
         <div className="grid lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+                <img 
+                  src="/logos/Bithire Logos/bithire-logo.svg" 
+                  alt="BitHire Logo" 
+                  className="w-8 h-8"
+                />
               </div>
               <span className="text-2xl font-bold text-white">
                 Bit<span className="gradient-text">Hire</span>

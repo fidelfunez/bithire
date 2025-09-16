@@ -196,7 +196,7 @@ const Process = () => {
                     <div className="aspect-[4/3] rounded-2xl border border-white/20 overflow-hidden group-hover:border-primary-400/40 transition-all duration-300">
                       <img 
                         src={`/photos/${phase.title.toLowerCase()}-process-visualization.webp`}
-                        alt={`${phase.title} process visualization`}
+                        alt={`BitHire ${phase.title.toLowerCase()} phase for hiring remote developers: ${phase.description}`}
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />

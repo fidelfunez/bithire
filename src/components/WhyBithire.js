@@ -13,7 +13,7 @@ const WhyBithire = () => {
     {
       icon: Brain,
       title: "Technical assessments + human insight",
-      description: "We use CodeSignal for initial technical assessments, but every final decision is made by a human developer who understands your needs.",
+      description: "We use tools like CodeSignal and HackerRank for initial technical assessments, but every final decision is made by a human developer who understands your needs.",
       highlight: "The best of both worlds"
     },
     {
@@ -87,9 +87,9 @@ const WhyBithire = () => {
                     src={`/photos/${index === 0 ? 'devs-reviewing-code -together.webp' : 
                                         index === 1 ? 'AI-dashboard-with-human-review.webp' : 
                                         'devs-collaborative-meeting.webp'}`}
-                    alt={index === 0 ? 'Developers reviewing code together' : 
-                         index === 1 ? 'AI assessment dashboard with human review' : 
-                         'LatAm developers in collaborative workspace'}
+                    alt={index === 0 ? 'Developers from Latin America conducting peer code reviews and technical assessments' : 
+                         index === 1 ? 'AI-powered technical assessment dashboard combined with human developer review process' : 
+                         'Collaborative workspace showing remote Latin American developers working together on technical projects'}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -122,7 +122,7 @@ const WhyBithire = () => {
                 </h3>
                 
                 <p className="text-white/80 mb-8 leading-relaxed">
-                  We leverage CodeSignal for initial assessments, then every candidate completes a developer-led interview to evaluate technical depth, problem-solving, and cultural fit.
+                  We leverage tools like CodeSignal for initial assessments, then every candidate completes a developer-led interview to evaluate technical depth, problem-solving, and cultural fit.
                 </p>
                 
                 <ul className="space-y-4">
@@ -149,7 +149,7 @@ const WhyBithire = () => {
                 <div className="aspect-square rounded-2xl border border-white/20 overflow-hidden">
                   <img 
                     src="/photos/human-coding-reviews.webp" 
-                    alt="Human developers conducting technical reviews and assessments"
+                    alt="Human developers conducting comprehensive technical reviews and assessments for remote engineer vetting process"
                     loading="lazy"
                     className="w-full h-full object-cover"
                   />

@@ -1,10 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Function to handle navigation to homepage sections
+  const handleHomepageNavigation = (sectionId) => {
+    if (location.pathname === '/') {
+      // Already on homepage, just scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Not on homepage, navigate to homepage with section
+      navigate(`/#${sectionId}`);
+      // Scroll to section after navigation (with slight delay for page load)
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+    setIsMenuOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +39,48 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Intersection Observer to track active section
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% from top
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe all sections
+    const sections = ['services', 'why-us', 'process', 'tech-stack'];
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, [location.pathname]);
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
@@ -28,7 +95,7 @@ const Header = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
               <img 
                 src="/logos/Bithire Logos/bithire-logo.svg" 
-                alt="BitHire Logo"
+                alt="BitHire logo - Remote developer recruitment from Latin America"
                 loading="eager" 
                 className="w-8 h-8"
               />
@@ -40,24 +107,62 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <a href="#services" className="text-white/80 hover:text-white transition-colors duration-200">
+            <button 
+              onClick={() => handleHomepageNavigation('services')}
+              className={`transition-colors duration-200 ${
+                activeSection === 'services'
+                  ? 'text-orange-400 font-semibold' 
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
               Services
-            </a>
-            <a href="#why-us" className="text-white/80 hover:text-white transition-colors duration-200">
+            </button>
+            <button 
+              onClick={() => handleHomepageNavigation('why-us')}
+              className={`transition-colors duration-200 ${
+                activeSection === 'why-us'
+                  ? 'text-orange-400 font-semibold' 
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
               Why Bithire
-            </a>
-            <a href="#process" className="text-white/80 hover:text-white transition-colors duration-200">
+            </button>
+            <button 
+              onClick={() => handleHomepageNavigation('process')}
+              className={`transition-colors duration-200 ${
+                activeSection === 'process'
+                  ? 'text-orange-400 font-semibold' 
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
               Process
-            </a>
-            <a href="#tech-stack" className="text-white/80 hover:text-white transition-colors duration-200">
+            </button>
+            <button 
+              onClick={() => handleHomepageNavigation('tech-stack')}
+              className={`transition-colors duration-200 ${
+                activeSection === 'tech-stack'
+                  ? 'text-orange-400 font-semibold' 
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
               Tech Stack
-            </a>
-            <Link to="/talent" className="text-white/80 hover:text-white transition-colors duration-200">
+            </button>
+            <Link 
+              to="/talent" 
+              className={`transition-colors duration-200 ${
+                location.pathname === '/talent' 
+                  ? 'text-orange-400 font-semibold' 
+                  : 'text-white/80 hover:text-white'
+              }`}
+            >
               For Developers
             </Link>
-            <a href="#contact" className="glass-button">
+            <button 
+              onClick={() => handleHomepageNavigation('contact')}
+              className="glass-button"
+            >
               Get Started
-            </a>
+            </button>
           </nav>
 
           {/* Mobile menu button */}
@@ -77,48 +182,63 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-black/20 backdrop-blur-md rounded-xl border border-white/10 mt-4">
-              <a
-                href="#services"
-                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => handleHomepageNavigation('services')}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 ${
+                  activeSection === 'services'
+                    ? 'text-orange-400 font-semibold bg-orange-400/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
                 Services
-              </a>
-              <a
-                href="#why-us"
-                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleHomepageNavigation('why-us')}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 ${
+                  activeSection === 'why-us'
+                    ? 'text-orange-400 font-semibold bg-orange-400/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
                 Why Bithire
-              </a>
-              <a
-                href="#process"
-                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleHomepageNavigation('process')}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 ${
+                  activeSection === 'process'
+                    ? 'text-orange-400 font-semibold bg-orange-400/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
                 Process
-              </a>
-              <a
-                href="#tech-stack"
-                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleHomepageNavigation('tech-stack')}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 ${
+                  activeSection === 'tech-stack'
+                    ? 'text-orange-400 font-semibold bg-orange-400/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
                 Tech Stack
-              </a>
+              </button>
               <Link
                 to="/talent"
-                className="block px-3 py-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200"
+                className={`block px-3 py-2 rounded-lg transition-colors duration-200 ${
+                  location.pathname === '/talent'
+                    ? 'text-orange-400 font-semibold bg-orange-400/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 For Developers
               </Link>
-              <a
-                href="#contact"
-                className="block px-3 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => handleHomepageNavigation('contact')}
+                className="block w-full text-left px-3 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500"
               >
                 Get Started
-              </a>
+              </button>
             </div>
           </div>
         )}
