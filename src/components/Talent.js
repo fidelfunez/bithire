@@ -577,15 +577,19 @@ const Talent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-900">
-      {/* Breadcrumb Navigation - Subtle */}
-      <nav aria-label="Breadcrumb" className="absolute top-4 left-4 z-50 hidden lg:block">
-        <ol className="flex items-center space-x-2 text-sm text-white/60">
-          <li><a href="/" className="hover:text-white/80 transition-colors">Home</a></li>
-          <li className="text-white/40">/</li>
-          <li className="text-white/80">For Developers</li>
-        </ol>
-      </nav>
+  <div className="min-h-screen bg-dark-900">
+    {/* Breadcrumb Navigation - Screen reader only */}
+    <nav aria-label="Breadcrumb" className="sr-only">
+      <ol className="flex items-center space-x-2 text-sm">
+        <li>
+          <a href="/" className="hover:underline">
+            Home
+          </a>
+        </li>
+        <li>/</li>
+        <li>For Developers</li>
+      </ol>
+    </nav>
       
       {/* Circular Progress Indicator */}
       <div className="fixed bottom-6 left-6 z-40">
@@ -660,7 +664,7 @@ const Talent = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Work with top U.S. companies, earn competitive salaries (with optional Bitcoin payments), and build a global career. Join Latin America's premier network of engineers and take your career to the next level. <a href="#benefits" className="text-blue-400 hover:text-blue-300 underline transition-colors">Learn more about our benefits</a> and <a href="#process" className="text-orange-400 hover:text-orange-300 underline transition-colors">discover our streamlined process</a>.
+              Work with top U.S. companies, earn competitive salaries (with optional Bitcoin payments), and build a global career. Join Latin America's premier network of engineers and take your career to the next level.
             </p>
             
             <motion.div
